@@ -51,10 +51,15 @@ We build a Transformer model for the Tiny Shakespeare dataset. We train with **s
 ### Key Figures
 
 1. **Loss & Accuracy Curves**  
-   ![P2 Loss & Accuracy](p_2_loss_acc.png)
+   ![P2 Loss & Accuracy](figs/p_2_loss_acc.png)
 
 2. **Layer & Head Comparison**  
-   ![P2 Layer & Head Comparison](p_2layer_and_head_comparison.png)
+   ![P2 Layer & Head Comparison](figs/p_2layer_and_head_comparison.png)
+
+2. **Seqs length = 50?**  
+   ![P2 Layer & Head Comparison](figs/p2_50.png)
+
+
 
 ### Observations
 - **Increasing heads/layers**: Tends to reduce validation loss and improve accuracy, at the cost of higher parameter counts and training time.  
