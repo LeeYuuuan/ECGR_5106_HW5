@@ -19,20 +19,25 @@ We train and validate a Transformer model on a given text sequence. We use seque
 ### Key Figures
 
 1. **Training & Validation Loss + Accuracy (Seq=10)**  
-   ![P1 Loss & Accuracy](p_1_loss_acc.png)
+   ![P1 Loss & Accuracy](figs/p_1_loss_acc.png)
 
 2. **Comparing Seq=20 & 30**  
-   ![P1 Seq 20 vs 30](p_1_seq_20_30.png)
+   ![P1 Seq 20 vs 30](figs/p_1_seq_20_30.png)
 
 3. **Validation Comparison**  
-   ![P1 Validation Comparison](p_1_Validation_Comparison.png)
+   ![P1 Validation Comparison](figs/p_1_Validation_Comparison.png)
 
-### Observations
-- **Seq=10**: Lower context coverage, typically faster training but may limit accuracy.  
-- **Seq=20 & Seq=30**: Balancing coverage and complexity, with seq=30 often yielding slightly higher accuracy.  
-- **RNN vs Transformer**: The Transformer generally converges faster and achieves higher validation accuracy; RNN-based methods benefit from cross-attention but may not match the Transformer’s performance for longer sequences.
+### Problem 1 Analysis
 
----
+- **Sequence Length Effects**  
+  - As we increase the sequence length (from 10 to 30), we observe higher accuracy and lower training loss.  
+  - However, due to the limited size of the dataset, there is a risk of overfitting. For instance, at **seq=30**, the training loss continues to decrease but the test loss actually increases, indicating potential overfitting.  
+  - Interestingly, **seq=10** achieves the highest overall accuracy in this setup.
+
+- **Transformer vs. RNN**  
+  - The Transformer model does not perform as well as the RNN-based networks.  
+  - A likely explanation is that RNN models (including variants such as GRU/LSTM) can effectively memorize or fit smaller datasets, while the Transformer—having more parameters—typically requires a larger dataset to reach its full potential. As a result, the Transformer may underperform on small-scale data.
+
 
 ## Problem 2 (20 pts)
 
