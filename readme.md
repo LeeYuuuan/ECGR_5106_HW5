@@ -1,143 +1,133 @@
-# Homework 5 – Sequence-to-Sequence Modeling
+# Homework 5 — Sequence-to-Sequence Modeling
 
-This report covers four primary tasks (Problems 1–4) that explore seq2seq translation between English and French in both directions. Below is a brief description of each problem, the figures that demonstrate our results, and some key observations about the outcomes.
+**Name**: (Your Name)  
+**Student ID**: (Your ID)  
+**GitHub Repo Link**: [Public GitHub Repository](https://github.com/...)  
 
----
-
-## Problem 1: English → French (GRU)
-
-**Model:**  
-A basic GRU-based encoder-decoder translating English to French.  
-**Metrics:**  
-Training loss, validation loss, and validation accuracy.  
-**Additional:**  
-Qualitative checks (example sentences) to evaluate translation quality.
-
-### Figures & Analysis
-
-1. **Training & Validation Loss + Accuracy**  
-   ![P1 Loss & Accuracy](figs/p_1_loss_acc.png)  
-   - The training and validation loss curves show a consistent decrease, indicating stable learning.  
-   - Validation accuracy gradually improves, suggesting the model is generalizing reasonably well.
-
-2. **Validation Comparison**  
-   ![P1 Validation Comparison](figs/p_1_Validation_Comparison.png)  
-   - Different hyperparameter settings (e.g., hidden size, layers) highlight the trade-off between complexity and performance.  
-   - Simpler configurations converge faster but may plateau at a lower accuracy.
-
-**Key Observations:**  
-- **GRU** alone can capture basic linguistic structures.  
-- Increasing GRU capacity (e.g., more layers) further reduces validation loss but can increase overfitting risks.
+This report covers four main problems focusing on RNN-based and Transformer-based sequence models, applied to character-level language modeling and English↔French machine translation tasks. We report training/validation losses, accuracies, model complexities, and qualitative evaluations.
 
 ---
 
-## Problem 2: English → French (GRU + Attention)
+## Problem 1 (20 pts)
 
-**Model:**  
-Extends the GRU-based encoder-decoder by incorporating an attention mechanism.  
-**Motivation:**  
-Attention helps the decoder focus on relevant encoder states, improving alignment and translation quality.
+### Task Overview
+We train and validate a Transformer model on a given text sequence. We use sequence lengths **10**, **20**, and **30** and compare these results against RNN-based models (with or without cross-attention). We report:
+- Training loss, validation accuracy  
+- Execution time  
+- Model complexity (parameter count)  
 
-### Figures & Analysis
+### Key Figures
 
-1. **Training & Validation Loss + Accuracy**  
-   ![P2 Loss & Accuracy](figs/p_2_loss_acc.png)  
-   - Noticeably lower validation loss and higher accuracy compared to the basic GRU model in Problem 1.  
-   - The model converges faster due to more direct “alignment” with input sequences.
+1. **Training & Validation Loss + Accuracy (Seq=10)**  
+   ![P1 Loss & Accuracy](p_1_loss_acc.png)
+
+2. **Comparing Seq=20 & 30**  
+   ![P1 Seq 20 vs 30](p_1_seq_20_30.png)
+
+3. **Validation Comparison**  
+   ![P1 Validation Comparison](p_1_Validation_Comparison.png)
+
+### Observations
+- **Seq=10**: Lower context coverage, typically faster training but may limit accuracy.  
+- **Seq=20 & Seq=30**: Balancing coverage and complexity, with seq=30 often yielding slightly higher accuracy.  
+- **RNN vs Transformer**: The Transformer generally converges faster and achieves higher validation accuracy; RNN-based methods benefit from cross-attention but may not match the Transformer’s performance for longer sequences.
+
+---
+
+## Problem 2 (20 pts)
+
+### Task Overview
+We build a Transformer model for the Tiny Shakespeare dataset. We train with **sequence lengths 20 & 30**, then also try **seq=50**. We focus on:
+- 2 Transformer layers, 2 heads (baseline)  
+- Additional hyperparameter combos: 1,2,4 layers × 2,4 heads  
+- Compare with RNN-based models  
+- Report training/validation losses, accuracies, execution time, model complexity
+
+### Key Figures
+
+1. **Loss & Accuracy Curves**  
+   ![P2 Loss & Accuracy](p_2_loss_acc.png)
 
 2. **Layer & Head Comparison**  
-   ![P2 Layer & Head Comparison](figs/p_2layer_and_head_comparison.png)  
-   - As layers and attention heads increase, the network captures more context, often leading to better performance.  
-   - However, it also significantly increases the model’s parameter count and training time.
+   ![P2 Layer & Head Comparison](p_2layer_and_head_comparison.png)
 
-**Key Observations:**  
-- **Attention** consistently boosts translation accuracy.  
-- **Deeper** or **multi-headed** attention improves capturing long-range dependencies, but might require careful tuning to avoid high training costs.
+### Observations
+- **Increasing heads/layers**: Tends to reduce validation loss and improve accuracy, at the cost of higher parameter counts and training time.  
+- **Seq=50**: Gains can be modest but training time and overfitting risks increase.  
+- **RNN vs Transformer**: Transformers generally handle longer contexts better; RNNs may converge quickly for shorter sequences but can struggle to maintain accuracy on bigger contexts.
 
 ---
 
-## Problem 3: French → English (Transformer)
+## Problem 3 (40 pts)
 
-**Model:**  
-A Transformer encoder-decoder reversing the translation direction (French as source, English as target).  
-**Metrics:**  
-Training/validation loss and accuracy, same as previous problems.
+### Task Overview
+Here, we develop a Transformer-based encoder-decoder for **English→French** translation. We test:
+- 1, 2, 4 layers × 2, 4 heads (8 combos)  
+- Compare with RNN-based models (with/without attention)  
+- Report training loss, validation loss, validation accuracy  
+- Provide some **qualitative** translation checks
 
-### Figures & Analysis
+### Key Figures
 
 1. **Training & Validation Loss**  
-   ![P3 Loss](figs/P_3_loss.png)  
-   - The loss curves demonstrate that the Transformer converges steadily when reversing the translation direction.  
-   - Slightly higher initial loss suggests the reversed task can be more challenging initially.
+   ![P3 Loss](p_3_loss.png)  
 
 2. **Validation Accuracy**  
-   ![P3 Accuracy](figs/p_3_acc.png)  
-   - Transformer architecture effectively handles French→English with attention-based mechanisms.  
-   - Accuracy trends upward, though the final values may be marginally lower than English→French in some settings.
+   ![P3 Accuracy](p_3_acc.png)
 
-**Key Observations:**  
-- **French→English** can sometimes yield lower accuracy than English→French, possibly due to the morphological or syntactic differences in French source sentences.  
-- **Transformer**’s multi-head attention excels at capturing dependencies across entire sentences.
+### Observations
+- **Transformer** significantly outperforms plain RNNs.  
+- **Attention** in RNN narrows the gap but usually cannot surpass a deeper Transformer.  
+- **Qualitative** checks indicate more fluent translations from deeper Transformers (e.g., 4 layers, 4 heads).
 
 ---
 
-## Problem 4: French → English (Transformer, Various Configs)
+## Problem 4 (20 pts)
 
-**Model:**  
-Multiple Transformer configurations, exploring different numbers of encoder/decoder layers and attention heads.  
-**Goal:**  
-Evaluate how model depth and multi-headed attention influence performance on French→English translation.
+### Task Overview
+We repeat Problem 3 but reverse the translation direction — **French→English**. We again explore 1, 2, 4 layers × 2, 4 heads, comparing with RNN-based approaches. We:
+- Train on full dataset  
+- Evaluate on full dataset (training/validation loss, validation accuracy)  
+- Provide qualitative validation of translations
 
-### Figures & Analysis
+### Key Figures
 
 1. **Training & Validation Loss**  
-   ![P4 Loss](figs/p_4_loss.png)  
-   - More layers and heads usually accelerate learning and push down validation loss.  
-   - Eventually, gains can diminish if the model overfits or if training data is limited.
+   ![P4 Loss](p_4_loss.png)
 
 2. **Validation Accuracy**  
-   ![P4 Accuracy](figs/p_4_acc.png)  
-   - Accuracy tends to improve with deeper/wider Transformer configurations, although gains might be small after a certain point.  
-   - The model’s final accuracy is generally higher than simpler architectures.
+   ![P4 Accuracy](p_4_acc.png)
 
-**Key Observations:**  
-- **Deeper networks** can represent more complex patterns but take longer to train.  
-- **Attention heads** can capture different aspects of linguistic features; more heads often help up to a limit.  
-- The best configuration depends on available compute and dataset size.
+### Observations
+- **French→English** can be slightly more challenging depending on the morphological complexity in French.  
+- Deep Transformers again reach the best accuracy, with a higher compute overhead.  
+- Qualitative translations show Transformers handle long or complex sentences more gracefully than baseline RNNs.
 
 ---
 
-## Sequence Length Comparison: 20 vs. 30 vs. 50
+## Overall Summary
 
-![Sequence Length Comparison](figs/seq_length_20_30_50.png)
+1. **Transformer vs RNN**  
+   - Transformers generally converge faster and yield higher accuracy for longer sequence tasks. RNN with attention is decent but usually not as strong as a multi-headed Transformer.  
 
-**Findings:**  
-- Shorter sequences (e.g., 20) converge faster but may lose important context.  
-- Longer sequences (e.g., 50) capture more context but training can slow significantly and overfitting risks can rise.  
-- A moderate length (e.g., 30) often strikes a good balance between efficiency and capturing necessary context.
+2. **Effect of Sequence Length**  
+   - Shorter sequences (e.g., seq=10 or 20) train faster but capture less context, limiting accuracy.  
+   - seq=30 or 50 can further improve performance but cost more time and risk overfitting.  
+
+3. **Layers & Heads**  
+   - More layers and heads generally improve performance in Transformers, yet also raise parameter count and slow training.  
+   - Optimal choice depends on resource constraints.  
+
+4. **Translation Direction**  
+   - English→French vs. French→English may differ slightly in accuracy, often due to morphological or syntactic complexities of the source or target language.  
+
+5. **Future Work**  
+   - Incorporating beam search decoding can improve generative quality.  
+   - Subword tokenization (e.g., BPE) often yields more robust translations.  
+   - Larger datasets and advanced regularization are beneficial for deeper models.
 
 ---
 
-## Overall Takeaways
+**References**  
+- *List any references (papers, resources, or lecture notes) used.*
 
-1. **GRU vs. Transformer:**  
-   - Transformer generally handles longer contexts better.  
-   - GRU can be sufficient for simpler tasks or smaller datasets, especially if equipped with attention.
-
-2. **Attention Mechanism:**  
-   - Improves performance in both RNN-based and Transformer-based models.  
-   - Helps align source and target sentences effectively.
-
-3. **Hyperparameter Choices:**  
-   - More layers and heads often yield better accuracy but increase training cost and risk of overfitting.  
-   - Sequence lengths must be tuned to balance context coverage with computational load.
-
-4. **Translation Direction:**  
-   - English→French vs. French→English may differ slightly in difficulty due to language-specific complexities.  
-   - Empirically, French→English can be more challenging, showing slower or lower accuracy improvements in some setups.
-
-5. **Future Improvements:**  
-   - Larger datasets and better tokenization (e.g., subword/BPE) can further enhance translation quality.  
-   - Methods like beam search decoding or scheduled sampling during training can improve generation robustness.
-
- 
