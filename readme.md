@@ -64,9 +64,9 @@ We build a Transformer model for the Tiny Shakespeare dataset. We train with **s
 ### Observations
 - **Increasing heads/layers**: Tends to reduce validation loss and improve accuracy, at the cost of higher parameter counts and training time.  
 - **Seq=50**: Gains can be modest but training time and overfitting risks increase.  
-- **RNN vs Transformer**: Transformers generally handle longer contexts better; RNNs may converge quickly for shorter sequences but can struggle to maintain accuracy on bigger contexts.
-
----
+- **RNN vs Transformer**:  
+   - The Transformer model does not perform as well as the RNN-based networks.  
+   - A likely explanation is that RNN models (including variants such as GRU/LSTM) can effectively memorize or fit smaller datasets, while the Transformer—having more parameters—typically requires a larger dataset to reach its full potential. As a result, the Transformer may underperform on small-scale data.
 
 ## Problem 3 (40 pts)
 
@@ -80,10 +80,10 @@ Here, we develop a Transformer-based encoder-decoder for **English→French** tr
 ### Key Figures
 
 1. **Training & Validation Loss**  
-   ![P3 Loss](p_3_loss.png)  
+   ![P3 Loss](figs/p_3_loss.png)  
 
 2. **Validation Accuracy**  
-   ![P3 Accuracy](p_3_acc.png)
+   ![P3 Accuracy](figs/p_3_acc.png)
 
 ### Observations
 - **Transformer** significantly outperforms plain RNNs.  
@@ -103,10 +103,10 @@ We repeat Problem 3 but reverse the translation direction — **French→English
 ### Key Figures
 
 1. **Training & Validation Loss**  
-   ![P4 Loss](p_4_loss.png)
+   ![P4 Loss](figs/p_4_loss.png)
 
 2. **Validation Accuracy**  
-   ![P4 Accuracy](p_4_acc.png)
+   ![P4 Accuracy](figs/p_4_acc.png)
 
 ### Observations
 - **French→English** can be slightly more challenging depending on the morphological complexity in French.  
@@ -131,13 +131,4 @@ We repeat Problem 3 but reverse the translation direction — **French→English
 4. **Translation Direction**  
    - English→French vs. French→English may differ slightly in accuracy, often due to morphological or syntactic complexities of the source or target language.  
 
-5. **Future Work**  
-   - Incorporating beam search decoding can improve generative quality.  
-   - Subword tokenization (e.g., BPE) often yields more robust translations.  
-   - Larger datasets and advanced regularization are beneficial for deeper models.
-
----
-
-**References**  
-- *List any references (papers, resources, or lecture notes) used.*
 
