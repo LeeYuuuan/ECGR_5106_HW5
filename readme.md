@@ -1,8 +1,8 @@
 # Homework 5 — Sequence-to-Sequence Modeling
 
-**Name**: (Your Name)  
-**Student ID**: (Your ID)  
-**GitHub Repo Link**: [Public GitHub Repository](https://github.com/...)  
+**Name**: Liyuan Zhang
+**Student ID**: 801432783  
+**GitHub Repo Link**: [Public GitHub Repository](https://github.com/LeeYuuuan/ECGR_5106_HW5)  
 
 This report covers four main problems focusing on Transformer-based sequence models, applied to character-level language modeling and English↔French machine translation tasks. We report training/validation losses, accuracies, model complexities, and qualitative evaluations.
 
