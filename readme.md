@@ -4,7 +4,7 @@
 **Student ID**: (Your ID)  
 **GitHub Repo Link**: [Public GitHub Repository](https://github.com/...)  
 
-This report covers four main problems focusing on RNN-based and Transformer-based sequence models, applied to character-level language modeling and English↔French machine translation tasks. We report training/validation losses, accuracies, model complexities, and qualitative evaluations.
+This report covers four main problems focusing on Transformer-based sequence models, applied to character-level language modeling and English↔French machine translation tasks. We report training/validation losses, accuracies, model complexities, and qualitative evaluations.
 
 ---
 
