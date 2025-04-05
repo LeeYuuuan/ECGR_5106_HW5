@@ -66,7 +66,7 @@ Training/validation loss and accuracy, same as previous problems.
 ### Figures & Analysis
 
 1. **Training & Validation Loss**  
-   ![P3 Loss](figs/p_3_loss.png)  
+   ![P3 Loss](figs/P_3_loss.png)  
    - The loss curves demonstrate that the Transformer converges steadily when reversing the translation direction.  
    - Slightly higher initial loss suggests the reversed task can be more challenging initially.
 
